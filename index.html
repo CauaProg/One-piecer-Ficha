@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Personagem - RPG One Piece</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a1428 0%, #1a2f4f 50%, #0f1c2e 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 193, 7, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(33, 150, 243, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23103a5c" fill-opacity="0.3" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(145deg, rgba(20, 30, 48, 0.95), rgba(30, 45, 70, 0.95));
+            border-radius: 30px;
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(255, 193, 7, 0.1);
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 50px;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffc107;
+            margin-bottom: 40px;
+            font-size: 3.5em;
+            font-family: 'Bangers', cursive;
+            text-shadow: 
+                3px 3px 0 #ff6b35,
+                6px 6px 0 rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(255, 193, 7, 0.5);
+            letter-spacing: 3px;
+            transform: rotate(-2deg);
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: rotate(-2deg) translateY(0); }
+            50% { transform: rotate(-2deg) translateY(-10px); }
+        }
+
+        .section {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #ff6b35 0%, #ffc107 100%);
+            color: #0a1428;
+            padding: 18px 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 700;
+            box-shadow: 
+                0 6px 20px rgba(255, 107, 53, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title::before {
+            content: '⚓';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3em;
+            opacity: 0.2;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field label {
+            font-weight: 600;
+            color: #ffc107;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .field input, .field textarea, .field select {
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            border-radius: 12px;
+            font-size: 1em;
+            background: rgba(10, 20, 40, 0.6);
+            color: #fff;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .field input:focus, .field textarea:focus, .field select:focus {
+            outline: none;
+            border-color: #ffc107;
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.2);
+            background: rgba(10, 20, 40, 0.8);
+        }
+
+        .field textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-field {
+            background: linear-gradient(145deg, rgba(30, 45, 70, 0.8), rgba(20, 35, 55, 0.8));
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-field:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(255, 193, 7, 0.2);
+            border-color: #ffc107;
+        }
+
+        .stat-field label {
+            display: block;
+            font-weight: 700;
+            color: #ffc107;
+            margin-bottom: 12px;
+            text-align: center;
+            font-size: 1.1em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .stat-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.6em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-btn.plus {
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+        }
+
+        .stat-btn.minus {
+            background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+        }
+
+        .stat-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .stat-btn:active {
+            transform: scale(0.95);
+        }
+
+        .stat-value {
+            width: 70px;
+            padding: 10px;
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 10px;
+            font-size: 1.4em;
+            text-align: center;
+            font-weight: bold;
+            background: rgba(10, 20, 40, 0.8);
+            color: #ffc107;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .temp-stats-display {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: space-around;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 193, 7, 0.3);
+        }
+
+        .temp-field {
+            flex: 1;
+        }
+
+        .temp-field label {
+             font-size: 0.8em;
+             text-align: center;
+             margin-bottom: 5px;
+             font-weight: normal;
+             color: #88b3d4;
+        }
+        
+        .stat-temp-value {
+             width: 100%;
+             padding: 6px;
+             border: 1px solid rgba(255, 193, 7, 0.3);
+             border-radius: 8px;
+             font-size: 0.9em;
+             text-align: center;
+             background: rgba(10, 20, 40, 0.6);
+             color: #fff;
+        }
+
+        .list-section {
+            background: rgba(20, 35, 55, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid rgba(255, 193, 7, 0.2);
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .list-item span {
+            font-weight: bold;
+            color: #ff6b35;
+            margin-right: 15px;
+            min-width: 35px;
+            font-size: 1.1em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .list-item input {
+            flex: 1;
+        }
+
+        .list-item textarea {
+            flex: 1;
+            min-height: 70px;
+        }
+
+        .level-section {
+            background: linear-gradient(135deg, #ff6b35 0%, #ffc107 50%, #ff6b35 100%);
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 
+                0 15px 50px rgba(255, 107, 53, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-section::before {
+            content: '☠';
+            position: absolute;
+            font-size: 15em;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+        }
+
+        .level-display {
+            position: relative;
+            z-index: 1;
+            color: #0a1428;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            font-family: 'Bangers', cursive;
+        }
+
+        .level-button {
+            position: relative;
+            z-index: 1;
+            background: #0a1428;
+            color: #ffc107;
+            border: 3px solid #ffc107;
+            padding: 18px 45px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+
+        .level-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
+            background: #ffc107;
+            color: #0a1428;
+        }
+
+        .level-button:active {
+            transform: scale(0.98);
+        }
+
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            display: none;
+            animation: slideInRight 0.5s ease;
+            z-index: 3000;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            max-width: 400px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(500px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .points-remaining {
+            background: linear-gradient(135deg, #ffc107, #ff6b35);
+            color: #0a1428;
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .reset-button, #btnNivel3 {
+            background: linear-gradient(135deg, #dc3545 0%, #c62828 100%);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+            margin-top: 30px;
+            width: 100%;
+            max-width: 350px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+
+        #btnNivel3 {
+            background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+            margin-top: 20px;
+        }
+
+        .reset-button:hover, #btnNivel3:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.6);
+        }
+
+        #btnNivel3:hover {
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.6);
+        }
+
+        .reset-button:active, #btnNivel3:active {
+            transform: scale(0.98);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1e2d46, #2a3f5f);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            max-width: 500px;
+            animation: modalZoomIn 0.4s ease-out;
+            border: 3px solid rgba(255, 193, 7, 0.5);
+        }
+
+        @keyframes modalZoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            color: #ff6b35;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-family: 'Bangers', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-text {
+            color: #e0e0e0;
+            font-size: 1.2em;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+        }
+
+        .modal-btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .modal-btn-cancel:hover {
+            background: #5a6268;
+            transform: scale(1.05);
+        }
+
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #dc3545, #c62828);
+            color: white;
+        }
+
+        .modal-btn-confirm:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+        }
+
+        .crew-section {
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 3px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .crew-title {
+            text-align: center;
+            color: #ffc107;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            font-family: 'Bangers', cursive;
+            text-shadow: 
+                2px 2px 0 #ff6b35,
+                4px 4px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .crew-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .crew-card {
+            background: linear-gradient(145deg, rgba(30, 45, 70, 0.9), rgba(20, 35, 55, 0.9));
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .crew-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(255, 193, 7, 0.3);
+            border-color: #ffc107;
+        }
+
+        .crew-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(145deg, #1a2f4f, #0f1c2e);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 4em;
+            overflow: hidden;
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .crew-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .crew-card:hover .crew-image img {
+            transform: scale(1.1);
+        }
+
+        .crew-name {
+            font-weight: bold;
+            color: #ffc107;
+            font-size: 1.2em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .description-box {
+            background: rgba(20, 35, 55, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #e0e0e0;
+            border-left: 5px solid #ffc107;
+            min-height: 120px;
+            white-space: pre-wrap;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #lunarianoModeField, #tritaoModeField, #minkModeField {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Otimização: estrelas removidas para melhor performance */
+    </style>
+</head>
+<body>
+    <div class="waves"></div>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <h1>⚔️ FICHA DE PERSONAGEM ⚔️</h1>
+
+        <div class="section">
+            <div class="section-title">📜 Informações Básicas</div>
+            <div class="grid">
+                <div class="field">
+                    <label>Nome:</label>
+                    <input type="text" id="nome" placeholder="Digite o nome">
+                </div>
+                <div class="field">
+                    <label>Alcunha:</label>
+                    <input type="text" id="alcunha" placeholder="Digite a alcunha">
+                </div>
+                <div class="field">
+                    <label>Recompensa:</label>
+                    <input type="text" id="recompensa" placeholder="Ex: 100.000.000">
+                </div>
+                <div class="field">
+                    <label>Player:</label>
+                    <input type="text" id="player" placeholder="Nome do jogador">
+                </div>
+                <div class="field">
+                    <label>Idade:</label>
+                    <input type="number" id="idade" placeholder="Idade">
+                </div>
+                <div class="field">
+                    <label>Tempo de vida:</label>
+                    <input type="text" id="tempoVida" value="100 anos" readonly style="background: rgba(10, 20, 40, 0.4);">
+                </div>
+                <div class="field">
+                    <label>Altura:</label>
+                    <input type="text" id="altura" placeholder="Ex: 1.80m">
+                </div>
+                <div class="field">
+                    <label>Raça:</label>
+                    <select id="raca" onchange="atualizarRaca()">
+                        <option value="">Selecione a Raça</option>
+                        <option value="Humano">Humano</option>
+                        <option value="Tritão/Sereia">Tritão/Sereia</option>
+                        <option value="Ciborgue">Ciborgue</option>
+                        <option value="Mink">Mink</option>
+                        <option value="Gigante">Gigante</option>
+                        <option value="Tribo dos 3 Olhos">Tribo dos 3 Olhos</option>
+                        <option value="Oni">Oni</option>
+                        <option value="Lunariano">Lunariano</option>
+                        <option value="Braços Longos">Braços Longos</option>
+                        <option value="Pernas Longas">Pernas Longas</option>
+                        <option value="Bucaneiro">Bucaneiro</option>
+                        <option value="Skypeano">Skypeano</option>
+                        <option value="Tonttata">Tonttata</option>
+                    </select>
+                </div>
+                <div class="field" id="lunarianoModeField">
+                    <label>Modo Lunariano:</label>
+                    <select id="modoLunariano" onchange="alternarModoLunariano()">
+                        <option value="Nenhum" selected>Nenhum (Bônus Padrão: 0)</option>
+                        <option value="Chama Apagada">Chama Apagada (Ataque)</option>
+                        <option value="Chama Acesa">Chama Acesa (Defesa)</option>
+                    </select>
+                </div>
+                
+                <div class="field" id="tritaoModeField">
+                    <label>Modo Tritão:</label>
+                    <select id="modoTritao" onchange="alternarModoTritao()">
+                        <option value="Fora da Água" selected>Fora da Água (Bônus Padrão)</option>
+                        <option value="Dentro da Água">Dentro da Água (+10 Força e Velocidade)</option>
+                    </select>
+                </div>
+                
+                <div class="field" id="minkModeField">
+                    <label>Modo Mink:</label>
+                    <select id="modoMink" onchange="alternarModoMink()">
+                        <option value="Normal" selected>Forma Normal</option>
+                        <option value="Sulong">Forma Sulong (+30 For, Vel, Sab, Con, +150 Vida)</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Estilo de luta:</label>
+                    <select id="estiloLuta" onchange="atualizarEstiloLuta()">
+                        <option value="">Selecione o Estilo</option>
+                        <option value="Lutador">Lutador</option>
+                        <option value="Espadachim">Espadachim</option>
+                        <option value="Atirador">Atirador</option>
+                        <option value="Karate Tritão">Karate Tritão</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Profissão:</label>
+                    <input type="text" id="profissao" placeholder="Ex: Pirata">
+                </div>
+            </div>
+            <div class="field">
+                <label>Descrição e Passivas da Raça:</label>
+                <div class="description-box" id="racaDescricao">Selecione uma raça para ver sua descrição e bônus.</div>
+            </div>
+        </div>
+
+        <div class="level-section">
+            <div class="level-display">NÍVEL: <span id="nivel">1</span></div>
+            <button class="level-button" onclick="subirNivel()">⬆️ SUBIR DE NÍVEL</button>
+            <div id="btnRolarVidaContainer" style="margin-top: 20px;">
+                <button class="level-button" onclick="rolarVidaInicial()" style="background: linear-gradient(135deg, #2196f3, #1565c0); border-color: #2196f3;" id="btnRolarVida">🎲 ROLAR VIDA INICIAL (3d20)</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">❤️ Atributos Principais</div>
+            <div class="field">
+                <label>Vida Total (Base + Constituição):</label>
+                <input type="text" id="vida" value="0 + Constituição" readonly style="background: rgba(10, 20, 40, 0.4); font-weight: bold; font-size: 1.2em; color: #4caf50;">
+                <input type="hidden" id="vidaBaseTotalNumerica" value="0">
+            </div>
+            <div class="field" style="margin-top: 15px;">
+                <label>Vida Base (Editável para HP inicial/nível alto):</label>
+                <input type="number" id="vidaBase" value="0" oninput="recalcularStatsEMostrarVida()" min="0">
+            </div>
+            <div class="field" style="margin-top: 15px;">
+                <label>Vida Atual:</label>
+                <input type="number" id="vidaAtual" value="0" style="font-weight: bold; font-size: 1.2em; color: #ff6b35;">
+            </div>
+            <div class="field" style="margin-top: 15px;">
+                <label>Dano base:</label>
+                <input type="text" id="danoBase" value="Dependente do Estilo de luta" readonly style="background: rgba(10, 20, 40, 0.4);">
+            </div>
+            <div class="field" style="margin-top: 15px;">
+                <label>Skill Points:</label>
+                <input type="number" id="skillPoints" value="0" readonly style="background: rgba(10, 20, 40, 0.4);">
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">⚡ Atributos (60 pontos para distribuir)</div>
+            <div class="points-remaining" id="pontosRestantes">Pontos restantes: 60</div>
+            <div class="stats-grid">
+                <div class="stat-field">
+                    <label>Força <span id="forcaBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('forca', -1)">−</button>
+                        <input type="number" class="stat-value" id="forca" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('forca', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="forcaTempBonus" value="0" oninput="recalcularStat('forca')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="forcaTempDesvantagem" value="0" oninput="recalcularStat('forca')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Destreza <span id="destrezaBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('destreza', -1)">−</button>
+                        <input type="number" class="stat-value" id="destreza" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('destreza', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="destrezaTempBonus" value="0" oninput="recalcularStat('destreza')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="destrezaTempDesvantagem" value="0" oninput="recalcularStat('destreza')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Velocidade <span id="velocidadeBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('velocidade', -1)">−</button>
+                        <input type="number" class="stat-value" id="velocidade" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('velocidade', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="velocidadeTempBonus" value="0" oninput="recalcularStat('velocidade')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="velocidadeTempDesvantagem" value="0" oninput="recalcularStat('velocidade')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Inteligência <span id="inteligenciaBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('inteligencia', -1)">−</button>
+                        <input type="number" class="stat-value" id="inteligencia" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('inteligencia', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="inteligenciaTempBonus" value="0" oninput="recalcularStat('inteligencia')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="inteligenciaTempDesvantagem" value="0" oninput="recalcularStat('inteligencia')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Sabedoria <span id="sabedoriaBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('sabedoria', -1)">−</button>
+                        <input type="number" class="stat-value" id="sabedoria" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('sabedoria', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="sabedoriaTempBonus" value="0" oninput="recalcularStat('sabedoria')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="sabedoriaTempDesvantagem" value="0" oninput="recalcularStat('sabedoria')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Constituição <span id="constituicaoBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('constituicao', -1)">−</button>
+                        <input type="number" class="stat-value" id="constituicao" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('constituicao', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="constituicaoTempBonus" value="0" oninput="recalcularStat('constituicao')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="constituicaoTempDesvantagem" value="0" oninput="recalcularStat('constituicao')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Carisma <span id="carismaBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('carisma', -1)">−</button>
+                        <input type="number" class="stat-value" id="carisma" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('carisma', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="carismaTempBonus" value="0" oninput="recalcularStat('carisma')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="carismaTempDesvantagem" value="0" oninput="recalcularStat('carisma')" min="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-field">
+                    <label>Vontade <span id="vontadeBonus" style="color: #88b3d4; font-size: 0.8em;">(+0)</span></label>
+                    <div class="stat-display">
+                        <button class="stat-btn minus" onclick="alterarStat('vontade', -1)">−</button>
+                        <input type="number" class="stat-value" id="vontade" value="0" readonly data-editable-base="0">
+                        <button class="stat-btn plus" onclick="alterarStat('vontade', 1)">+</button>
+                    </div>
+                    <div class="temp-stats-display">
+                        <div class="field temp-field">
+                            <label>Bônus Temp</label>
+                            <input type="number" class="stat-temp-value" id="vontadeTempBonus" value="0" oninput="recalcularStat('vontade')" min="0">
+                        </div>
+                        <div class="field temp-field">
+                            <label>Desv. Temp</label>
+                            <input type="number" class="stat-temp-value" id="vontadeTempDesvantagem" value="0" oninput="recalcularStat('vontade')" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔥 Habilidades</div>
+            <div class="list-section">
+                <div class="list-item"><span>1.</span><textarea id="hab1" rows="2"></textarea></div>
+                <div class="list-item"><span>2.</span><textarea id="hab2" rows="2"></textarea></div>
+                <div class="list-item"><span>3.</span><textarea id="hab3" rows="2"></textarea></div>
+                <div class="list-item"><span>4.</span><textarea id="hab4" rows="2"></textarea></div>
+                <div class="list-item"><span>5.</span><textarea id="hab5" rows="2"></textarea></div>
+                <div class="list-item"><span>6.</span><textarea id="hab6" rows="2"></textarea></div>
+                <div class="list-item"><span>7.</span><textarea id="hab7" rows="2" placeholder="Passivas da Raça"></textarea></div>
+                <div class="list-item"><span>8.</span><textarea id="hab8" rows="2" placeholder="Passivas do Estilo de Luta/Modo Lunariano/Tritão"></textarea></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">💼 Habilidades de Profissão</div>
+            <div class="list-section">
+                <div class="list-item"><span>1.</span><textarea id="habProf1" rows="2"></textarea></div>
+                <div class="list-item"><span>2.</span><textarea id="habProf2" rows="2"></textarea></div>
+                <div class="list-item"><span>3.</span><textarea id="habProf3" rows="2"></textarea></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎒 Inventário</div>
+            <div class="list-section">
+                <div class="list-item"><span>1.</span><textarea id="inv1" rows="2"></textarea></div>
+                <div class="list-item"><span>2.</span><textarea id="inv2" rows="2"></textarea></div>
+                <div class="list-item"><span>3.</span><textarea id="inv3" rows="2"></textarea></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">✨ Especiais</div>
+            <div class="grid">
+                <div class="field">
+                    <label>Akuma no Mi:</label>
+                    <input type="text" id="akuma" placeholder="Nome da fruta">
+                </div>
+                <div class="field">
+                    <label>Haki:</label>
+                    <input type="text" id="haki" placeholder="Tipos de Haki">
+                </div>
+            </div>
+        </div>
+
+        <button class="reset-button" onclick="mostrarModalReset()">🔄 RESETAR FICHA</button>
+        <button id="btnNivel3" onclick="comecarNivel3()">⬆️ COMEÇAR DO NÍVEL 3</button>
+
+        <div class="crew-section">
+            <div class="crew-title">👥 TRIPULANTES</div>
+            <div class="crew-grid">
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="ApolloSite.png" alt="Tripulante 1" onerror="this.style.display='none'; this.parentElement.innerHTML='🔥'">
+                    </div>
+                    <div class="crew-name">Apollo Ygnar 🔥</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="HadesSite.jpg" alt="Tripulante 2" onerror="this.style.display='none'; this.parentElement.innerHTML='😈'">
+                    </div>
+                    <div class="crew-name">Hades Tenebroso 😈</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="MagnumOpusSite.png" alt="Tripulante 3" onerror="this.style.display='none'; this.parentElement.innerHTML='🤺'">
+                    </div>
+                    <div class="crew-name">Magnum Opus 🤺</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="SindromeSite.jpg" alt="Tripulante 4" onerror="this.style.display='none'; this.parentElement.innerHTML='⭐'">
+                    </div>
+                    <div class="crew-name">Sindrome D. Down ⭐</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="DorianSite.png" alt="Tripulante 5" onerror="this.style.display='none'; this.parentElement.innerHTML='🐅'">
+                    </div>
+                    <div class="crew-name">Dorian Frigido 🐅</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="DariaSite2.jpg" alt="Tripulante 6" onerror="this.style.display='none'; this.parentElement.innerHTML='🔨'">
+                    </div>
+                    <div class="crew-name">Daria Ylva 🔨</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="DiamanteSite.jpg" alt="Tripulante 7" onerror="this.style.display='none'; this.parentElement.innerHTML='💎'">
+                    </div>
+                    <div class="crew-name">Diamante 💎</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="KoneSite2.jpg" alt="Tripulante 8" onerror="this.style.display='none'; this.parentElement.innerHTML='⚔️'">
+                    </div>
+                    <div class="crew-name">Kone ⚔️</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="LisaSite.jpg" alt="Tripulante 9" onerror="this.style.display='none'; this.parentElement.innerHTML='💀'">
+                    </div>
+                    <div class="crew-name">Lisa Lalia 💀</div>
+                </div>
+                <div class="crew-card">
+                    <div class="crew-image">
+                        <img src="ianVampiro.jpg" alt="Tripulante 10" onerror="this.style.display='none'; this.parentElement.innerHTML='❓'">
+                    </div>
+                    <div class="crew-name">????</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <div class="modal" id="modalReset">
+        <div class="modal-content">
+            <div class="modal-title">⚠️ ATENÇÃO!</div>
+            <div class="modal-text">Tem certeza que deseja resetar toda a ficha?<br>Esta ação não pode ser desfeita!</div>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="fecharModalReset()">Cancelar</button>
+                <button class="modal-btn modal-btn-confirm" onclick="confirmarReset()">Resetar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Criar estrelas no fundo
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        let pontosBase = 60;
+        let vidaInicialRolada = false;
+        let vidaExtraPorNivel = 0;
+        let lunarianoVelocidadeBonus = 0;
+        let lunarianoDanoPassiva = "Nenhum Modo Ativo";
+        let pontosExtrasRaca = 0;
+        let tritaoBonusForca = 0;
+        let tritaoBonusVelocidade = 0;
+        let tritaoPassiva = "Fora da Água";
+        let minkBonusForca = 0;
+        let minkBonusVelocidade = 0;
+        let minkBonusSabedoria = 0;
+        let minkBonusConstituicao = 0;
+        let minkBonusVida = 0;
+
+        const RACAS = {
+            "Humano": { descricao: "Humanos são a raça mais numerosa no mundo de One Piece, humanos podem possuir sub-tribos específicas que possuem habilidades estranhas, mas normalmente são incrivelmente comuns.\n\nBônus: +4 pontos para distribuir em qualquer atributo.\nPassiva: Vantagem em testes de Vontade.\nTempo de vida: 100 anos.\nNão sofre racismo pelo governo mundial.", bonus: {}, pontosBonus: 4, tempoVida: '100 anos', passivas: { hab7: "Vantagem em testes de Vontade."} },
+            "Tritão/Sereia": { descricao: "Tritões e Sereias são uma raça aquática, e se destacam pela sua capacidade debaixo da água.\n\nBônus Fixo: +2 em Força.\nBônus Dinâmico (Dentro da Água): +10 Força e +10 Velocidade.\nPassiva: (Detalhes de bônus no Modo Tritão abaixo).\nTempo de vida: 100 anos\nSofre racismo pelo governo mundial.", 
+                bonus: { forca: 2 },
+                pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "Passiva Tritão/Sereia (Selecione o Modo Tritão)." } 
+            },
+            "Ciborgue": { descricao: "Ciborgues são indivíduos que tiveram seu corpo modificado pela tecnologia.\n\nBônus: +2 em Inteligência.\nPassiva: Cria uma habilidade relacionada a essa modificação (Preencher abaixo).\nTempo de vida: 100 anos.\nNão sofre racismo pelo governo mundial.", bonus: { inteligencia: 2 }, pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "Habilidade de Modificação Cibernética: (Preencha esta habilidade)" } },
+            "Mink": { descricao: "Os minks são uma raça de animais mamíferos humanóides, e se destacam pela sua capacidade de liberar raios, assim como uma misteriosa conexão com a Lua Cheia.\n\nBônus: X (Nenhum bônus de ponto direto)\nPassiva(s):\n*Electro: Capazes de canalizar eletricidade através da estática de seus pelos. Adiciona 3d6 a golpes se utilizado.\n*Sulong: Quando exposto à luz da lua cheia, o Sulong se manifesta. Rola um dado de Vontade para controlar o Sulong. Se falhar perde completamente o controle. Dificuldade para controlar: +10 dados de dano. +30 em Força, Velocidade, Sabedoria, Constituição. +150 de vida. O Electro passa a dar o dobro de dano.\nTempo de vida: 100 anos.\nSofrem racismo pelo governo mundial", bonus: {}, pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "*Electro: Adiciona 3d6 a golpes.\n*Sulong: (Detalhes no Modo Mink)" } },
+            "Gigante": { descricao: "Gigantes são indivíduos humanóides enormes, possuem grande força e resistência.\n\nBônus: +2 em Constituição.\nPassiva(s): Vantagem em testes de Força e Velocidade, desvantagem em testes de Destreza.\nTempo de vida: 300 anos.\nNão sofrem racismo pelo governo mundial.", 
+                bonus: { constituicao: 2 }, 
+                pontosBonus: 0, tempoVida: '300 anos', passivas: { hab7: "Vantagem em testes de Força e Velocidade.\nDesvantagem em testes de Destreza." } 
+            },
+            "Tribo dos 3 Olhos": { descricao: "A tribo dos 3 olhos possuem uma percepção fora do comum, dizem que seu terceiro olho quando despertado é capaz de ver tudo.\n\nBônus: +10 em Sabedoria.\nPassiva: Vantagem em testes de Sabedoria.\nTempo de vida: 100 anos.\nSão altamente perseguidos pelo governo e por piratas.", bonus: { sabedoria: 10 }, pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "Vantagem em testes de Sabedoria." } },
+            "Oni": { descricao: "Onis são uma tribo de seres humanoides poderosos e resistentes.\n\nBônus: X (Nenhum bônus de ponto direto)\nPassiva(s):\n*Imparável: Onis não caem quando a vida chega a zero, eles caem quando chegam a 15% da sua vida negativa.\n*Fúria: Após acertar 2 ataques é capaz de desferir um golpe devastador com + 3 dados de dano.\nTempo de vida: 150 anos.", bonus: {}, pontosBonus: 0, tempoVida: '150 anos', passivas: { hab7: "*Imparável: Não cai a 0, mas a 15% da vida negativa.\n*Fúria: Após 2 acertos, +3 dados de dano no próximo golpe." } },
+            "Lunariano": { descricao: "Lunarianos são uma raça de humanoides com asas negras e capazes de gerar e canalizar chamas.\n\nBônus: X (Nenhum bônus de ponto direto)\nPassiva(s): Trocar entre os modos gasta uma meia ação.\n*Chama acesa: Corta todo dano físico que recebe pela metade. É incapaz de manipular chamas. -10 de Velocidade. -3 dados de dano.\n*Chama apagada: É capaz de gerar e manipular fogo. +5 de Velocidade. +1 dado de dano.\nTempo de vida: 150 anos.", bonus: {}, pontosBonus: 0, tempoVida: '150 anos', passivas: { hab7: "Modo: " } 
+            },
+            "Braços Longos": { descricao: "Braços longos são uma tribo de humanos com braços alongados.\n\nBônus: +2 de Destreza.\nPassiva: +1d4 para ataques e reações.\nTempo de vida: 100 anos.", 
+                bonus: { destreza: 2 }, 
+                pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "+1d4 para ataques e reações." } 
+            },
+            "Pernas Longas": { descricao: "Pernas longas são uma tribo de humanos com pernas alongadas.\n\nBônus: +2 de Velocidade.\nPassiva: Pulo triplo.\nTempo de vida: 100 anos.", 
+                bonus: { velocidade: 2 }, 
+                pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "Pulo triplo." } 
+            },
+            "Bucaneiro": { descricao: "Bucaneiros são gigantes misturados com humanos, grandes e fortes.\n\nBônus: X (Nenhum bônus de ponto direto)\nPassiva: Recebe 5 de Vida Extra por nível (além do bônus de Constituição).\nTempo de vida: 150 anos.", 
+                bonus: {}, 
+                pontosBonus: 0, tempoVida: '150 anos', passivas: { hab7: "Recebe 5 de Vida Extra por nível." } 
+            },
+            "Skypeano": { descricao: "Skypeans são humanos alados, nativos do céu.\n\nBônus: +2 em Velocidade.\nPassiva: Voar em curtas distâncias.\nTempo de vida: 100 anos.", 
+                bonus: { velocidade: 2 }, 
+                pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "Voar em curtas distâncias." } 
+            },
+            "Tonttata": { descricao: "Tonttatas são pessoas minúsculas, extremamente rápidas e ágeis.\n\nBônus: +3 em Destreza e +3 em Velocidade.\nPassiva: É difícil de ser acertado.\nTempo de vida: 100 anos.", 
+                bonus: { destreza: 3, velocidade: 3 }, 
+                pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "É difícil de ser acertado." } 
+            }
+        };
+
+        const ESTILOS = {
+            "Lutador": { passiva: "Lutadores podem acumular poder, a cada ataque consecutivo, seu próximo ataque ganha um dado de dano extra. O dano base é Força + Destreza." },
+            "Espadachim": { passiva: "Espadachins ganham 2 dados de dano extras no segundo ataque, 3 no terceiro, 4 no quarto, 5 no quinto e assim por diante. O dano base é Força + Destreza." },
+            "Atirador": { passiva: "Atiradores ganham 1 dado de dano extra em ataques de longo alcance. O dano base é Destreza + Sabedoria." },
+            "Karate Tritão": { passiva: "Adiciona +2 dados de dano a ataques em contato com a água, e seus ataques de área causam o dobro de dano em oponentes em contato com a água. O dano base é Força + Vontade." }
+        };
+
+        const mostrarNotificacao = (message, type = 'success') => {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.background = type === 'success' ? 'linear-gradient(135deg, #4caf50, #2e7d32)' : 'linear-gradient(135deg, #f44336, #c62828)';
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 7000);
+        };
+
+        const getStatValue = (stat) => {
+            return parseInt(document.getElementById(stat).dataset.editableBase || 0);
+        };
+
+        const calcularPontosRestantes = () => {
+            const stats = ['forca', 'destreza', 'velocidade', 'inteligencia', 'sabedoria', 'constituicao', 'carisma', 'vontade'];
+            let pontosGastos = 0;
+            stats.forEach(stat => {
+                pontosGastos += getStatValue(stat);
+            });
+            const pontosTotais = pontosBase + pontosExtrasRaca;
+            const pontosRestantes = pontosTotais - pontosGastos;
+            return pontosRestantes;
+        };
+
+        const alterarStat = (stat, valor) => {
+            const statElement = document.getElementById(stat);
+            let baseValue = getStatValue(stat);
+            let pontosRestantes = calcularPontosRestantes();
+
+            const newValue = baseValue + valor;
+
+            if (valor > 0 && pontosRestantes < 1) {
+                mostrarNotificacao(`Pontos de atributo esgotados!`, 'error');
+                return;
+            }
+            
+            if (newValue < 0) {
+                 return;
+            }
+
+            statElement.dataset.editableBase = newValue;
+            recalcularStatsEMostrarVida();
+        };
+
+        const subirNivel = () => {
+            const nivelElement = document.getElementById('nivel');
+            let nivelAtual = parseInt(nivelElement.textContent);
+            const raca = document.getElementById('raca').value;
+            const vidaBaseInput = document.getElementById('vidaBase');
+
+            const dado = Math.floor(Math.random() * 20) + 1;
+            if (dado < 10) {
+                mostrarNotificacao(`🎲 Você rolou ${dado}! Precisa ser 10 ou mais para subir de nível.`, 'error');
+                return;
+            }
+
+            const novoNivel = nivelAtual + 1;
+            nivelElement.textContent = novoNivel;
+
+            let vidaBaseAtual = parseInt(vidaBaseInput.value || 0);
+            let novaVidaBase = vidaBaseAtual + dado;
+
+            let bonusBucaneiro = 0;
+            if (raca === "Bucaneiro") {
+                bonusBucaneiro = 5;
+                novaVidaBase += bonusBucaneiro;
+            }
+
+            vidaBaseInput.value = novaVidaBase;
+            pontosBase += 4;
+
+            mostrarNotificacao(
+                `🎉 Nível ${novoNivel} alcançado! Rolagem: d20 = ${dado}${bonusBucaneiro > 0 ? ` (+${bonusBucaneiro} Vida por Bucaneiro)` : ''}. 
+                Vida Base: ${novaVidaBase}. Você ganhou +4 pontos para distribuir!`,
+                'success'
+            );
+
+            recalcularStatsEMostrarVida();
+            saveAll();
+        };
+
+        const rolarVidaInicial = () => {
+            if (vidaInicialRolada) {
+                mostrarNotificacao("Você já rolou a vida inicial! Se desejar mudar, edite o campo Vida Base.", 'error');
+                return;
+            }
+
+            const raca = document.getElementById('raca').value;
+            const estilo = document.getElementById('estiloLuta').value;
+
+            if (!raca) {
+                mostrarNotificacao("Selecione uma raça antes de rolar a vida inicial!", 'error');
+                return;
+            }
+
+            if (!estilo) {
+                mostrarNotificacao("Selecione um estilo de luta antes de rolar a vida inicial!", 'error');
+                return;
+            }
+
+            const rolls = [Math.floor(Math.random() * 20) + 1,
+                        Math.floor(Math.random() * 20) + 1,
+                        Math.floor(Math.random() * 20) + 1];
+
+            if (rolls.some(r => r < 10)) {
+                mostrarNotificacao(`🎲 Você rolou: ${rolls.join(', ')} – todos os dados precisam ser ≥ 10. Role novamente!`, 'error');
+                return;
+            }
+
+            let vidaRolada = rolls.reduce((a, b) => a + b, 0);
+
+            let bonusEstilo = 0;
+            switch (estilo) {
+                case "Lutador": bonusEstilo = 40; break;
+                case "Espadachim": bonusEstilo = 30; break;
+                case "Atirador": bonusEstilo = 20; break;
+                case "Karate Tritão": bonusEstilo = 40; break;
+            }
+
+            vidaRolada += bonusEstilo;
+
+            vidaInicialRolada = true;
+            localStorage.setItem("vidaInicialRolada", "true");
+            document.getElementById('vidaBase').value = vidaRolada;
+            document.getElementById('btnRolarVidaContainer').style.display = 'none';
+
+            recalcularStatsEMostrarVida();
+            mostrarNotificacao(`🎉 Vida inicial rolada com sucesso! (${rolls.join(' + ')}) + ${bonusEstilo} do estilo ${estilo} = ${vidaRolada} HP base.`, 'success');
+
+            saveAll();
+        };
+
+        const recalcularStat = (stat) => {
+            recalcularStatsEMostrarVida();
+        };
+
+        const recalcularStatsEMostrarVida = (skipSave = false) => {
+            const stats = ['forca', 'destreza', 'velocidade', 'inteligencia', 'sabedoria', 'constituicao', 'carisma', 'vontade'];
+            let pontosGastos = 0;
+            const racaAtual = document.getElementById('raca').value;
+            
+            stats.forEach(stat => {
+                const baseValue = parseInt(document.getElementById(stat).dataset.editableBase || 0);
+                pontosGastos += baseValue;
+
+                const bonusFixo = RACAS[racaAtual]?.bonus?.[stat] || 0;
+                const totalBonusTemp = parseInt(document.getElementById(stat + 'TempBonus').value || 0) - parseInt(document.getElementById(stat + 'TempDesvantagem').value || 0);
+                
+                let bonusDinamico = 0;
+                if (stat === 'velocidade') bonusDinamico += lunarianoVelocidadeBonus + minkBonusVelocidade + tritaoBonusVelocidade;
+                if (stat === 'forca') bonusDinamico += tritaoBonusForca + minkBonusForca;
+                if (stat === 'sabedoria') bonusDinamico += minkBonusSabedoria;
+                if (stat === 'constituicao') bonusDinamico += minkBonusConstituicao;
+
+                let totalStat = baseValue + bonusFixo + totalBonusTemp + bonusDinamico;
+                
+                document.getElementById(stat).value = totalStat;
+                document.getElementById(stat + 'Bonus').textContent = `(+${totalStat - baseValue})`;
+            });
+
+            const pontosTotais = pontosBase + pontosExtrasRaca;
+            const pontosRestantes = pontosTotais - pontosGastos;
+            document.getElementById('pontosRestantes').textContent = `Pontos restantes: ${pontosRestantes}`;
+            
+            const nivel = parseInt(document.getElementById('nivel').textContent);
+            document.getElementById('skillPoints').value = nivel * 2;
+
+            let vidaBase = parseInt(document.getElementById('vidaBase').value || 0);
+            let constituicaoTotal = parseInt(document.getElementById('constituicao').value || 0);
+            
+            let vidaTotal = vidaBase + constituicaoTotal;
+            vidaTotal += minkBonusVida; 
+            vidaTotal += vidaExtraPorNivel * nivel;
+
+            document.getElementById('vida').value = `${vidaTotal} HP (Base: ${vidaBase} + Bônus Const: ${constituicaoTotal})`;
+            document.getElementById('vidaBaseTotalNumerica').value = vidaTotal;
+
+            let vidaAtualElement = document.getElementById('vidaAtual');
+            if (skipSave || parseInt(vidaAtualElement.value) === 0) {
+                vidaAtualElement.value = vidaTotal;
+            }
+            
+            atualizarPassivaLunariana();
+            
+            if (!skipSave) {
+                saveAll(); 
+            }
+        };
+
+        const atualizarRaca = (skipRecalculate = false) => {
+            const racaSelect = document.getElementById('raca');
+            const raca = racaSelect.value;
+            const descricaoBox = document.getElementById('racaDescricao');
+            
+            document.getElementById('lunarianoModeField').style.display = 'none';
+            document.getElementById('tritaoModeField').style.display = 'none';
+            document.getElementById('minkModeField').style.display = 'none';
+            lunarianoVelocidadeBonus = 0;
+            lunarianoDanoPassiva = "Nenhum Modo Ativo";
+            tritaoBonusForca = 0;
+            tritaoBonusVelocidade = 0;
+            minkBonusForca = 0;
+            minkBonusVelocidade = 0;
+            minkBonusSabedoria = 0;
+            minkBonusConstituicao = 0;
+            minkBonusVida = 0;
+            vidaExtraPorNivel = 0;
+            pontosExtrasRaca = 0;
+            
+            if (raca) {
+                const info = RACAS[raca];
+                descricaoBox.textContent = info.descricao;
+                document.getElementById('tempoVida').value = info.tempoVida;
+                document.getElementById('hab7').value = info.passivas.hab7;
+                pontosExtrasRaca = info.pontosBonus;
+
+                if (raca === "Lunariano") {
+                    document.getElementById('lunarianoModeField').style.display = 'flex';
+                    alternarModoLunariano(skipRecalculate);
+                } else if (raca === "Tritão/Sereia") {
+                    document.getElementById('tritaoModeField').style.display = 'flex';
+                    alternarModoTritao(skipRecalculate);
+                } else if (raca === "Mink") {
+                    document.getElementById('minkModeField').style.display = 'flex';
+                    alternarModoMink(skipRecalculate);
+                } else if (raca === "Bucaneiro") {
+                    vidaExtraPorNivel = 5;
+                }
+            } else {
+                descricaoBox.textContent = "Selecione uma raça para ver sua descrição e bônus.";
+                document.getElementById('tempoVida').value = "100 anos";
+                document.getElementById('hab7').value = "";
+            }
+            
+            if (!skipRecalculate) {
+                recalcularStatsEMostrarVida();
+            }
+            if (!skipRecalculate) saveAll();
+        };
+
+        const atualizarEstiloLuta = (skipRecalculate = false) => {
+            const estilo = document.getElementById('estiloLuta').value;
+            const hab8Element = document.getElementById('hab8');
+            const danoBaseElement = document.getElementById('danoBase');
+            
+            let basePassiva = "";
+            if (document.getElementById('raca').value === "Lunariano") {
+                basePassiva = lunarianoDanoPassiva;
+            } else if (document.getElementById('raca').value === "Tritão/Sereia") {
+                basePassiva = tritaoPassiva;
+            }
+
+            if (estilo && ESTILOS[estilo]) {
+                const passivaEstilo = ESTILOS[estilo].passiva;
+                hab8Element.value = (basePassiva ? basePassiva + "\n\n" : "") + passivaEstilo;
+                
+                if (estilo === "Lutador" || estilo === "Espadachim") {
+                    danoBaseElement.value = "Força + Destreza";
+                } else if (estilo === "Atirador") {
+                    danoBaseElement.value = "Destreza + Sabedoria";
+                } else if (estilo === "Karate Tritão") {
+                    danoBaseElement.value = "Força + Vontade";
+                }
+            } else {
+                hab8Element.value = basePassiva;
+                danoBaseElement.value = "Dependente do Estilo de luta";
+            }
+            if (!skipRecalculate) saveAll();
+        };
+        
+        const atualizarPassivaLunariana = () => {
+             const raca = document.getElementById('raca').value;
+             if (raca !== "Lunariano") return;
+             
+             const modo = document.getElementById('modoLunariano').value;
+             const hab7Element = document.getElementById('hab7');
+             const hab8Element = document.getElementById('hab8');
+             
+             let novaPassivaDano = "";
+             
+             if (modo === "Chama Apagada") {
+                 lunarianoVelocidadeBonus = 5;
+                 novaPassivaDano = "*Chama apagada: +1 dado de dano. +5 de Velocidade.";
+                 hab7Element.value = "Modo Ativo: Chama Apagada (+5 Vel, +1d Dano)";
+             } else if (modo === "Chama Acesa") {
+                 lunarianoVelocidadeBonus = -10;
+                 novaPassivaDano = "*Chama acesa: -3 dados de dano. -10 de Velocidade. Corta todo dano físico recebido pela metade.";
+                 hab7Element.value = "Modo Ativo: Chama Acesa (-10 Vel, -3d Dano, 50% Redução Dano Físico)";
+             } else {
+                 lunarianoVelocidadeBonus = 0;
+                 novaPassivaDano = "Nenhum Modo Ativo";
+                 hab7Element.value = "Modo: Nenhum";
+             }
+             
+             lunarianoDanoPassiva = novaPassivaDano;
+             
+             const estilo = document.getElementById('estiloLuta').value;
+             const passivaEstilo = estilo && ESTILOS[estilo] ? ESTILOS[estilo].passiva : "";
+             
+             if (passivaEstilo) {
+                hab8Element.value = novaPassivaDano + "\n\n" + passivaEstilo;
+             } else {
+                hab8Element.value = novaPassivaDano;
+             }
+        };
+
+        const alternarModoLunariano = (skipRecalculate = false) => {
+            atualizarPassivaLunariana();
+            if (!skipRecalculate) recalcularStatsEMostrarVida();
+            if (!skipRecalculate) saveAll(); 
+        };
+        
+        const alternarModoTritao = (skipRecalculate = false) => {
+            const modo = document.getElementById('modoTritao').value;
+            const hab7Element = document.getElementById('hab7');
+            const hab8Element = document.getElementById('hab8');
+            
+            tritaoBonusForca = 0;
+            tritaoBonusVelocidade = 0;
+            
+            if (modo === "Dentro da Água") {
+                tritaoBonusForca = 10;
+                tritaoBonusVelocidade = 10;
+                tritaoPassiva = "Modo Ativo: Dentro da Água (+10 Força, +10 Velocidade)";
+                hab7Element.value = "Passiva Tritão/Sereia (Selecione o Modo Tritão):\nModo Ativo: Dentro da Água (+10 Força, +10 Velocidade)";
+            } else {
+                tritaoPassiva = "Fora da Água";
+                hab7Element.value = "Passiva Tritão/Sereia (Selecione o Modo Tritão):\nFora da Água";
+            }
+            
+            const estilo = document.getElementById('estiloLuta').value;
+            const passivaEstilo = estilo && ESTILOS[estilo] ? ESTILOS[estilo].passiva : "";
+            
+            if (passivaEstilo) {
+                hab8Element.value = tritaoPassiva + "\n\n" + passivaEstilo;
+            } else {
+                hab8Element.value = tritaoPassiva;
+            }
+
+            if (!skipRecalculate) recalcularStatsEMostrarVida();
+            if (!skipRecalculate) saveAll(); 
+        };
+
+        const alternarModoMink = (skipRecalculate = false) => {
+            const modo = document.getElementById('modoMink').value;
+            const hab7Element = document.getElementById('hab7');
+            
+            minkBonusForca = 0;
+            minkBonusVelocidade = 0;
+            minkBonusSabedoria = 0;
+            minkBonusConstituicao = 0;
+            minkBonusVida = 0;
+            
+            let passivaMink = "*Electro: Adiciona 3d6 a golpes.\n";
+            
+            if (modo === "Sulong") {
+                minkBonusForca = 30;
+                minkBonusVelocidade = 30;
+                minkBonusSabedoria = 30;
+                minkBonusConstituicao = 30;
+                minkBonusVida = 150;
+                passivaMink += "*Sulong Ativo: +30 em Força, Vel, Sab, Con. +150 de vida. Electro dá o dobro de dano.";
+            } else {
+                passivaMink += "*Sulong Inativo.";
+            }
+            
+            hab7Element.value = passivaMink;
+
+            if (!skipRecalculate) recalcularStatsEMostrarVida();
+            if (!skipRecalculate) saveAll(); 
+        };
+
+        const mostrarModalReset = () => {
+            document.getElementById('modalReset').style.display = 'flex';
+        };
+
+        const fecharModalReset = () => {
+            document.getElementById('modalReset').style.display = 'none';
+        };
+
+        const confirmarReset = () => {
+            localStorage.clear();
+            localStorage.removeItem("vidaInicialRolada");
+            pontosBase = 60;
+            vidaInicialRolada = false;
+            vidaExtraPorNivel = 0;
+            pontosExtrasRaca = 0;
+
+            document.querySelectorAll('input[type="text"], input[type="number"], textarea, select').forEach(el => {
+                if (el.id === "tempoVida") {
+                    el.value = "100 anos";
+                } else if (el.id === "vida") {
+                    el.value = "0 + Constituição";
+                } else if (el.id === "vidaBaseTotalNumerica") {
+                    el.value = "0";
+                } else if (el.tagName === "SELECT") {
+                    el.selectedIndex = 0;
+                } else {
+                    el.value = "";
+                }
+            });
+
+            const stats = ['forca', 'destreza', 'velocidade', 'inteligencia', 'sabedoria', 'constituicao', 'carisma', 'vontade'];
+            stats.forEach(stat => {
+                const statElement = document.getElementById(stat);
+                statElement.value = 0;
+                statElement.dataset.editableBase = 0;
+                document.getElementById(stat + 'TempBonus').value = 0;
+                document.getElementById(stat + 'TempDesvantagem').value = 0;
+                document.getElementById(stat + 'Bonus').textContent = '(+0)';
+            });
+
+            document.getElementById('nivel').textContent = "1";
+            document.getElementById('pontosRestantes').textContent = "Pontos restantes: 60";
+            document.getElementById('vidaBase').value = 0;
+            document.getElementById('vidaAtual').value = 0;
+            document.getElementById('vida').value = "0 + Constituição";
+            document.getElementById('racaDescricao').textContent = "Selecione uma raça para ver sua descrição e bônus.";
+            document.getElementById('danoBase').value = "Dependente do Estilo de luta";
+            document.getElementById('skillPoints').value = 0;
+
+            document.getElementById('lunarianoModeField').style.display = 'none';
+            document.getElementById('tritaoModeField').style.display = 'none';
+            document.getElementById('minkModeField').style.display = 'none';
+
+            const btnVidaContainer = document.getElementById('btnRolarVidaContainer');
+            if (btnVidaContainer) btnVidaContainer.style.display = 'block';
+
+            fecharModalReset();
+            mostrarNotificacao("Ficha resetada com sucesso! Tudo foi zerado.", "success");
+        };
+
+        function comecarNivel3() {
+            const nivelEl = document.getElementById('nivel');
+            nivelEl.textContent = "3";
+
+            pontosBase = 60;
+
+            document.getElementById('pontosRestantes').textContent = "Pontos restantes: 60";
+
+            localStorage.setItem('nivel', "3");
+            localStorage.setItem('pontosBase', "60");
+
+            recalcularStatsEMostrarVida(true);
+
+            mostrarNotificacao("Ficha iniciada no Nível 3 (com pontos de início padrão).", "success");
+        }
+
+        const saveAll = () => {
+            const elementsToSave = document.querySelectorAll(
+                '#nome, #alcunha, #recompensa, #player, #idade, #altura, #raca, #modoLunariano, #modoTritao, #modoMink, #estiloLuta, #profissao, #vidaBase, #vidaAtual, #akuma, #haki, ' +
+                '#hab1, #hab2, #hab3, #hab4, #hab5, #hab6, #hab7, #hab8, #habProf1, #habProf2, #habProf3, #inv1, #inv2, #inv3, ' +
+                '#vidaBaseTotalNumerica, #danoBase, #skillPoints, #tempoVida' 
+            );
+
+            const nivelElement = document.getElementById('nivel');
+            if (nivelElement) {
+                localStorage.setItem('nivel', nivelElement.textContent);
+            }
+            
+            const statElements = document.querySelectorAll('.stat-value');
+            statElements.forEach(el => {
+                const baseValue = el.dataset.editableBase;
+                if (baseValue !== undefined) {
+                    localStorage.setItem(el.id + 'Base', baseValue);
+                }
+                const tempBonusEl = document.getElementById(el.id + 'TempBonus');
+                if (tempBonusEl) localStorage.setItem(el.id + 'TempBonus', tempBonusEl.value);
+                const tempDesvEl = document.getElementById(el.id + 'TempDesvantagem');
+                if (tempDesvEl) localStorage.setItem(el.id + 'TempDesvantagem', tempDesvEl.value);
+            });
+
+            elementsToSave.forEach(el => {
+                localStorage.setItem(el.id, el.value);
+            });
+
+            localStorage.setItem('vidaInicialRolada', vidaInicialRolada);
+        };
+
+        const loadAll = () => {
+            if (window._carregadoAntes) return;
+            window._carregadoAntes = true;
+
+            const nivelSaved = localStorage.getItem('nivel');
+            const nivelEl = document.getElementById('nivel');
+            if (nivelSaved) {
+                nivelEl.textContent = nivelSaved;
+            } else {
+                nivelEl.textContent = "1";
+            }
+
+            const nivelAtual = parseInt(nivelEl.textContent) || 1;
+            pontosBase = 60 + (nivelAtual - 1) * 4;
+
+            const elementsToLoad = document.querySelectorAll(
+                '#nome, #alcunha, #recompensa, #player, #idade, #altura, #raca, #modoLunariano, #modoTritao, #modoMink, #estiloLuta, #profissao, #vidaBase, #vidaAtual, #akuma, #haki, ' +
+                '#hab1, #hab2, #hab3, #hab4, #hab5, #hab6, #hab7, #hab8, #habProf1, #habProf2, #habProf3, #inv1, #inv2, #inv3, ' +
+                '#vidaBaseTotalNumerica, #danoBase, #skillPoints, #tempoVida'
+            );
+
+            elementsToLoad.forEach(el => {
+                const savedValue = localStorage.getItem(el.id);
+                if (savedValue !== null) {
+                    if (el.tagName === 'SELECT') {
+                        try { el.value = savedValue; } catch(e) { el.selectedIndex = 0; }
+                    } else {
+                        el.value = savedValue;
+                    }
+                }
+            });
+
+            const stats = ['forca', 'destreza', 'velocidade', 'inteligencia', 'sabedoria', 'constituicao', 'carisma', 'vontade'];
+            stats.forEach(stat => {
+                const baseValue = localStorage.getItem(stat + 'Base');
+                const tempBonus = localStorage.getItem(stat + 'TempBonus');
+                const tempDesv = localStorage.getItem(stat + 'TempDesvantagem');
+                const statEl = document.getElementById(stat);
+                if (baseValue !== null) statEl.dataset.editableBase = baseValue;
+                else statEl.dataset.editableBase = 0;
+                if (tempBonus !== null) {
+                    const el = document.getElementById(stat + 'TempBonus');
+                    if (el) el.value = tempBonus;
+                }
+                if (tempDesv !== null) {
+                    const el2 = document.getElementById(stat + 'TempDesvantagem');
+                    if (el2) el2.value = tempDesv;
+                }
+            });
+
+            atualizarRaca(true);
+            atualizarEstiloLuta(true);
+
+            const btnVidaContainer = document.getElementById('btnRolarVidaContainer');
+            const vidaRolada = localStorage.getItem("vidaInicialRolada");
+            if (btnVidaContainer) {
+                if (vidaRolada === "true") {
+                    btnVidaContainer.style.display = 'none';
+                    vidaInicialRolada = true;
+                } else {
+                    btnVidaContainer.style.display = 'block';
+                    vidaInicialRolada = false;
+                }
+            }
+
+            recalcularStatsEMostrarVida(true);
+
+            const pontosRestantesEl = document.getElementById("pontosRestantes");
+            const texto = pontosRestantesEl.textContent;
+            const match = texto ? texto.match(/-?\d+/) : null;
+            if (match && parseInt(match[0]) < 0) {
+                pontosRestantesEl.textContent = "Pontos restantes: 0";
+            }
+        };
+
+        const clearStorage = () => {
+            localStorage.clear();
+            window.location.reload();
+        };
+
+        const attachAutoSave = () => {
+            const fields = document.querySelectorAll(
+                'input:not([readonly]):not([type="hidden"]), textarea, select'
+            );
+
+            fields.forEach(el => {
+                el.addEventListener('change', saveAll);
+                el.addEventListener('blur', saveAll);
+                
+                el.addEventListener('input', () => {
+                    if (el._saveTimeout) clearTimeout(el._saveTimeout);
+                    el._saveTimeout = setTimeout(saveAll, 400);
+                });
+            });
+
+            window.addEventListener('beforeunload', saveAll);
+            
+            if (!document.getElementById('btnClearLocalStorage')){
+              const btn = document.createElement('button');
+              btn.id = 'btnClearLocalStorage';
+              btn.type = 'button';
+              btn.textContent = '🧹 Limpar dados locais';
+              btn.style.position = 'fixed';
+              btn.style.bottom = '18px';
+              btn.style.left = '18px';
+              btn.style.padding = '10px 18px';
+              btn.style.borderRadius = '12px';
+              btn.style.border = 'none';
+              btn.style.background = 'linear-gradient(135deg, #343a40, #1a1d20)';
+              btn.style.color = '#ffc107';
+              btn.style.zIndex = 2000;
+              btn.style.cursor = 'pointer';
+              btn.style.fontWeight = 'bold';
+              btn.style.fontSize = '0.9em';
+              btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+              btn.style.transition = 'all 0.3s ease';
+              btn.addEventListener('mouseenter', () => {
+                  btn.style.transform = 'scale(1.05)';
+                  btn.style.boxShadow = '0 6px 20px rgba(255, 193, 7, 0.3)';
+              });
+              btn.addEventListener('mouseleave', () => {
+                  btn.style.transform = 'scale(1)';
+                  btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+              });
+              btn.addEventListener('click', clearStorage);
+              document.body.appendChild(btn);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loaded = loadAll();
+            
+            if (loaded) {
+                atualizarRaca(true);
+                atualizarEstiloLuta(true);
+                recalcularStatsEMostrarVida(true); 
+                
+                if (vidaInicialRolada) {
+                    document.getElementById('btnRolarVidaContainer').style.display = 'none';
+                }
+            } else {
+                atualizarRaca(true);
+                recalcularStatsEMostrarVida(true);
+            }
+            
+            attachAutoSave();
+        });
+    </script>
+</body>
+</html>
