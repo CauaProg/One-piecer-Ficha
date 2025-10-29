@@ -17,117 +17,53 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0a1428 0%, #1a2f4f 50%, #0f1c2e 100%);
-            background-attachment: fixed;
+            background: #0f1c2e;
             min-height: 100vh;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 193, 7, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(33, 150, 243, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
         .waves {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23103a5c" fill-opacity="0.3" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            opacity: 0.6;
-            pointer-events: none;
-            z-index: 0;
+            display: none;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            background: linear-gradient(145deg, rgba(20, 30, 48, 0.95), rgba(30, 45, 70, 0.95));
-            border-radius: 30px;
-            box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 60px rgba(255, 193, 7, 0.1);
+            background: rgba(20, 30, 48, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
-            padding: 50px;
-            border: 2px solid rgba(255, 193, 7, 0.3);
-            backdrop-filter: blur(10px);
+            padding: 40px;
+            border: 1px solid rgba(255, 193, 7, 0.3);
         }
 
         h1 {
             text-align: center;
             color: #ffc107;
             margin-bottom: 40px;
-            font-size: 3.5em;
+            font-size: 3em;
             font-family: 'Bangers', cursive;
-            text-shadow: 
-                3px 3px 0 #ff6b35,
-                6px 6px 0 rgba(0, 0, 0, 0.3),
-                0 0 30px rgba(255, 193, 7, 0.5);
-            letter-spacing: 3px;
-            transform: rotate(-2deg);
-            animation: titleFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes titleFloat {
-            0%, 100% { transform: rotate(-2deg) translateY(0); }
-            50% { transform: rotate(-2deg) translateY(-10px); }
+            text-shadow: 2px 2px 0 #ff6b35;
+            letter-spacing: 2px;
         }
 
         .section {
             margin-bottom: 40px;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
         }
 
         .section-title {
             background: linear-gradient(135deg, #ff6b35 0%, #ffc107 100%);
             color: #0a1428;
-            padding: 18px 25px;
-            border-radius: 15px;
+            padding: 15px 20px;
+            border-radius: 10px;
             margin-bottom: 20px;
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: 700;
-            box-shadow: 
-                0 6px 20px rgba(255, 107, 53, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-title::before {
-            content: '⚓';
-            position: absolute;
-            left: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 3em;
-            opacity: 0.2;
+            box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
         }
 
         .grid {
@@ -147,24 +83,22 @@
             color: #ffc107;
             margin-bottom: 8px;
             font-size: 0.95em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .field input, .field textarea, .field select {
             padding: 12px 15px;
             border: 2px solid rgba(255, 193, 7, 0.3);
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 1em;
             background: rgba(10, 20, 40, 0.6);
             color: #fff;
-            transition: all 0.3s ease;
+            transition: border-color 0.2s;
             font-family: 'Poppins', sans-serif;
         }
 
         .field input:focus, .field textarea:focus, .field select:focus {
             outline: none;
             border-color: #ffc107;
-            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.2);
             background: rgba(10, 20, 40, 0.8);
         }
 
@@ -180,17 +114,15 @@
         }
 
         .stat-field {
-            background: linear-gradient(145deg, rgba(30, 45, 70, 0.8), rgba(20, 35, 55, 0.8));
+            background: rgba(30, 45, 70, 0.8);
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 12px;
             border: 2px solid rgba(255, 193, 7, 0.3);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.2s;
         }
 
         .stat-field:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(255, 193, 7, 0.2);
             border-color: #ffc107;
         }
 
@@ -201,7 +133,6 @@
             margin-bottom: 12px;
             text-align: center;
             font-size: 1.1em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .stat-display {
@@ -215,26 +146,25 @@
             width: 40px;
             height: 40px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 1.6em;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform 0.1s;
             color: white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .stat-btn.plus {
-            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            background: #4caf50;
         }
 
         .stat-btn.minus {
-            background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+            background: #f44336;
         }
 
         .stat-btn:hover {
-            transform: scale(1.15);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transform: scale(1.1);
         }
 
         .stat-btn:active {
@@ -245,13 +175,12 @@
             width: 70px;
             padding: 10px;
             border: 2px solid rgba(255, 193, 7, 0.5);
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 1.4em;
             text-align: center;
             font-weight: bold;
             background: rgba(10, 20, 40, 0.8);
             color: #ffc107;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
         .temp-stats-display {
@@ -306,7 +235,6 @@
             margin-right: 15px;
             min-width: 35px;
             font-size: 1.1em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .list-item input {
@@ -319,61 +247,41 @@
         }
 
         .level-section {
-            background: linear-gradient(135deg, #ff6b35 0%, #ffc107 50%, #ff6b35 100%);
-            padding: 35px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ffc107 100%);
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
             margin-top: 40px;
-            box-shadow: 
-                0 15px 50px rgba(255, 107, 53, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .level-section::before {
-            content: '☠';
-            position: absolute;
-            font-size: 15em;
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-15deg);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
         }
 
         .level-display {
-            position: relative;
-            z-index: 1;
             color: #0a1428;
             font-size: 2.5em;
             font-weight: bold;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
             font-family: 'Bangers', cursive;
         }
 
         .level-button {
-            position: relative;
-            z-index: 1;
             background: #0a1428;
             color: #ffc107;
             border: 3px solid #ffc107;
-            padding: 18px 45px;
-            font-size: 1.3em;
+            padding: 15px 40px;
+            font-size: 1.2em;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             font-family: 'Bangers', cursive;
             letter-spacing: 2px;
         }
 
         .level-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.4);
             background: #ffc107;
             color: #0a1428;
+            transform: translateY(-2px);
         }
 
         .level-button:active {
@@ -384,46 +292,40 @@
             position: fixed;
             top: 30px;
             right: 30px;
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            background: #4caf50;
             color: white;
             padding: 20px 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             display: none;
-            animation: slideInRight 0.5s ease;
             z-index: 3000;
             border: 2px solid rgba(255, 255, 255, 0.3);
             max-width: 400px;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(500px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
         }
 
         .points-remaining {
             background: linear-gradient(135deg, #ffc107, #ff6b35);
             color: #0a1428;
             padding: 15px 25px;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
             font-weight: bold;
             margin-bottom: 20px;
             font-size: 1.2em;
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         .reset-button, #btnNivel3 {
-            background: linear-gradient(135deg, #dc3545 0%, #c62828 100%);
+            background: #dc3545;
             color: white;
             border: none;
-            padding: 18px 45px;
+            padding: 15px 40px;
             font-size: 1.2em;
             font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
             margin-top: 30px;
             width: 100%;
             max-width: 350px;
@@ -435,18 +337,13 @@
         }
 
         #btnNivel3 {
-            background: linear-gradient(135deg, #2196f3 0%, #1565c0 100%);
-            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+            background: #2196f3;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
             margin-top: 20px;
         }
 
         .reset-button:hover, #btnNivel3:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.6);
-        }
-
-        #btnNivel3:hover {
-            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.6);
+            transform: translateY(-2px);
         }
 
         .reset-button:active, #btnNivel3:active {
@@ -464,38 +361,30 @@
             z-index: 4000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
         }
 
         .modal-content {
-            background: linear-gradient(145deg, #1e2d46, #2a3f5f);
-            padding: 50px;
-            border-radius: 25px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            background: #1e2d46;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
             text-align: center;
             max-width: 500px;
-            animation: modalZoomIn 0.4s ease-out;
             border: 3px solid rgba(255, 193, 7, 0.5);
-        }
-
-        @keyframes modalZoomIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-title {
             color: #ff6b35;
-            font-size: 2.2em;
-            margin-bottom: 25px;
+            font-size: 2em;
+            margin-bottom: 20px;
             font-weight: bold;
             font-family: 'Bangers', cursive;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .modal-text {
             color: #e0e0e0;
             font-size: 1.2em;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             line-height: 1.6;
         }
 
@@ -506,13 +395,13 @@
         }
 
         .modal-btn {
-            padding: 15px 35px;
+            padding: 12px 30px;
             border: none;
             border-radius: 50px;
             font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.2s;
             font-family: 'Bangers', cursive;
             letter-spacing: 1px;
         }
@@ -524,17 +413,15 @@
 
         .modal-btn-cancel:hover {
             background: #5a6268;
-            transform: scale(1.05);
         }
 
         .modal-btn-confirm {
-            background: linear-gradient(135deg, #dc3545, #c62828);
+            background: #dc3545;
             color: white;
         }
 
         .modal-btn-confirm:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+            background: #c62828;
         }
 
         .crew-section {
@@ -550,9 +437,7 @@
             font-weight: bold;
             margin-bottom: 40px;
             font-family: 'Bangers', cursive;
-            text-shadow: 
-                2px 2px 0 #ff6b35,
-                4px 4px 0 rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 0 #ff6b35;
         }
 
         .crew-grid {
@@ -563,27 +448,25 @@
         }
 
         .crew-card {
-            background: linear-gradient(145deg, rgba(30, 45, 70, 0.9), rgba(20, 35, 55, 0.9));
-            border-radius: 20px;
+            background: rgba(30, 45, 70, 0.9);
+            border-radius: 15px;
             padding: 20px;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: border-color 0.2s;
             border: 3px solid transparent;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .crew-card:hover {
-            transform: translateY(-10px) rotate(2deg);
-            box-shadow: 0 15px 40px rgba(255, 193, 7, 0.3);
             border-color: #ffc107;
         }
 
         .crew-image {
             width: 100%;
             height: 180px;
-            background: linear-gradient(145deg, #1a2f4f, #0f1c2e);
-            border-radius: 15px;
+            background: #0f1c2e;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -591,38 +474,30 @@
             font-size: 4em;
             overflow: hidden;
             border: 2px solid rgba(255, 193, 7, 0.3);
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .crew-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .crew-card:hover .crew-image img {
-            transform: scale(1.1);
         }
 
         .crew-name {
             font-weight: bold;
             color: #ffc107;
             font-size: 1.2em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .description-box {
             background: rgba(20, 35, 55, 0.8);
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 10px;
             margin-top: 15px;
             font-size: 0.95em;
             color: #e0e0e0;
-            border-left: 5px solid #ffc107;
+            border-left: 4px solid #ffc107;
             min-height: 120px;
             white-space: pre-wrap;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         #lunarianoModeField, #tritaoModeField, #minkModeField {
@@ -643,11 +518,9 @@
             }
 
             .stats-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmin(150px, 1fr));
             }
         }
-
-        /* Otimização: estrelas removidas para melhor performance */
     </style>
 </head>
 <body>
@@ -655,7 +528,7 @@
     <div class="stars" id="stars"></div>
     
     <div class="container">
-        <h1>⚔️ FICHA DE PERSONAGEM ⚔️</h1>
+        <h1>⚓️ FICHA DE PERSONAGEM ⚓️</h1>
 
         <div class="section">
             <div class="section-title">📜 Informações Básicas</div>
@@ -719,8 +592,8 @@
                 <div class="field" id="tritaoModeField">
                     <label>Modo Tritão:</label>
                     <select id="modoTritao" onchange="alternarModoTritao()">
-                        <option value="Fora da Água" selected>Fora da Água (Bônus Padrão)</option>
-                        <option value="Dentro da Água">Dentro da Água (+10 Força e Velocidade)</option>
+                        <option value="Fora da água" selected>Fora da água (Bônus Padrão)</option>
+                        <option value="Dentro da água">Dentro da água (+10 Força e Velocidade)</option>
                     </select>
                 </div>
                 
@@ -756,7 +629,7 @@
             <div class="level-display">NÍVEL: <span id="nivel">1</span></div>
             <button class="level-button" onclick="subirNivel()">⬆️ SUBIR DE NÍVEL</button>
             <div id="btnRolarVidaContainer" style="margin-top: 20px;">
-                <button class="level-button" onclick="rolarVidaInicial()" style="background: linear-gradient(135deg, #2196f3, #1565c0); border-color: #2196f3;" id="btnRolarVida">🎲 ROLAR VIDA INICIAL (3d20)</button>
+                <button class="level-button" onclick="rolarVidaInicial()" style="background: #2196f3; border-color: #2196f3;" id="btnRolarVida">🎲 ROLAR VIDA INICIAL (3d20)</button>
             </div>
         </div>
 
@@ -781,7 +654,7 @@
             </div>
             <div class="field" style="margin-top: 15px;">
                 <label>Skill Points:</label>
-                <input type="number" id="skillPoints" value="0" readonly style="background: rgba(10, 20, 40, 0.4);">
+                <input type="number" id="skillPoints" value="0" min="0" oninput="salvarSkillPoints()" style="background: rgba(10, 20, 40, 0.4);">
             </div>
         </div>
 
@@ -983,7 +856,7 @@
         </div>
 
         <button class="reset-button" onclick="mostrarModalReset()">🔄 RESETAR FICHA</button>
-        <button id="btnNivel3" onclick="comecarNivel3()">⬆️ COMEÇAR DO NÍVEL 3</button>
+        <button id="btnNivel3" onclick="mostrarModalNivel3()">⬆️ COMEÇAR DO NÍVEL 3</button>
 
         <div class="crew-section">
             <div class="crew-title">👥 TRIPULANTES</div>
@@ -1014,9 +887,9 @@
                 </div>
                 <div class="crew-card">
                     <div class="crew-image">
-                        <img src="DorianSite.png" alt="Tripulante 5" onerror="this.style.display='none'; this.parentElement.innerHTML='🐅'">
+                        <img src="DorianSite.png" alt="Tripulante 5" onerror="this.style.display='none'; this.parentElement.innerHTML='🅿'">
                     </div>
-                    <div class="crew-name">Dorian Frigido 🐅</div>
+                    <div class="crew-name">Dorian Frigido 🅿</div>
                 </div>
                 <div class="crew-card">
                     <div class="crew-image">
@@ -1064,16 +937,28 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="modalNivel3">
+    <div class="modal-content">
+        <div class="modal-title">⚠️ CONFIRMAR NÍVEL 3</div>
+        <div class="modal-text">
+            Tem certeza que deseja começar a ficha diretamente no nível 3?<br>
+            Isso ajustará pontos e vida de acordo com o nível.
+        </div>
+        <div class="modal-buttons">
+            <button class="modal-btn modal-btn-cancel" onclick="fecharModalNivel3()">Cancelar</button>
+            <button class="modal-btn modal-btn-confirm" onclick="confirmarNivel3()">Confirmar</button>
+        </div>
+    </div>
+</div>
+
 
     <script>
-        // Criar estrelas no fundo
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
             starsContainer.appendChild(star);
         }
 
@@ -1085,7 +970,7 @@
         let pontosExtrasRaca = 0;
         let tritaoBonusForca = 0;
         let tritaoBonusVelocidade = 0;
-        let tritaoPassiva = "Fora da Água";
+        let tritaoPassiva = "Fora da água";
         let minkBonusForca = 0;
         let minkBonusVelocidade = 0;
         let minkBonusSabedoria = 0;
@@ -1094,7 +979,7 @@
 
         const RACAS = {
             "Humano": { descricao: "Humanos são a raça mais numerosa no mundo de One Piece, humanos podem possuir sub-tribos específicas que possuem habilidades estranhas, mas normalmente são incrivelmente comuns.\n\nBônus: +4 pontos para distribuir em qualquer atributo.\nPassiva: Vantagem em testes de Vontade.\nTempo de vida: 100 anos.\nNão sofre racismo pelo governo mundial.", bonus: {}, pontosBonus: 4, tempoVida: '100 anos', passivas: { hab7: "Vantagem em testes de Vontade."} },
-            "Tritão/Sereia": { descricao: "Tritões e Sereias são uma raça aquática, e se destacam pela sua capacidade debaixo da água.\n\nBônus Fixo: +2 em Força.\nBônus Dinâmico (Dentro da Água): +10 Força e +10 Velocidade.\nPassiva: (Detalhes de bônus no Modo Tritão abaixo).\nTempo de vida: 100 anos\nSofre racismo pelo governo mundial.", 
+            "Tritão/Sereia": { descricao: "Tritões e Sereias são uma raça aquática, e se destacam pela sua capacidade debaixo da água.\n\nBônus Fixo: +2 em Força.\nBônus Dinâmico (Dentro da água): +10 Força e +10 Velocidade.\nPassiva: (Detalhes de bônus no Modo Tritão abaixo).\nTempo de vida: 100 anos\nSofre racismo pelo governo mundial.", 
                 bonus: { forca: 2 },
                 pontosBonus: 0, tempoVida: '100 anos', passivas: { hab7: "Passiva Tritão/Sereia (Selecione o Modo Tritão)." } 
             },
@@ -1140,7 +1025,7 @@
         const mostrarNotificacao = (message, type = 'success') => {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.style.background = type === 'success' ? 'linear-gradient(135deg, #4caf50, #2e7d32)' : 'linear-gradient(135deg, #f44336, #c62828)';
+            notification.style.background = type === 'success' ? '#4caf50' : '#f44336';
             notification.style.display = 'block';
             setTimeout(() => {
                 notification.style.display = 'none';
@@ -1195,6 +1080,11 @@
             }
 
             const novoNivel = nivelAtual + 1;
+            // Adiciona +2 Skill Points por nível
+            let skillPoints = parseInt(localStorage.getItem('skillPoints')) || 0;
+            skillPoints += 2;
+            document.getElementById('skillPoints').value = skillPoints;
+            localStorage.setItem('skillPoints', skillPoints);
             nivelElement.textContent = novoNivel;
 
             let vidaBaseAtual = parseInt(vidaBaseInput.value || 0);
@@ -1303,7 +1193,17 @@
             document.getElementById('pontosRestantes').textContent = `Pontos restantes: ${pontosRestantes}`;
             
             const nivel = parseInt(document.getElementById('nivel').textContent);
-            document.getElementById('skillPoints').value = nivel * 2;
+            const skillPointsEl = document.getElementById('skillPoints');
+            let spAtual = parseInt(localStorage.getItem('skillPoints')) || 0;
+            if (!isNaN(spAtual)) {
+                skillPointsEl.value = spAtual;
+            } else {
+                skillPointsEl.value = nivel * 2;
+                localStorage.setItem('skillPoints', skillPointsEl.value);
+            }
+
+
+
 
             let vidaBase = parseInt(document.getElementById('vidaBase').value || 0);
             let constituicaoTotal = parseInt(document.getElementById('constituicao').value || 0);
@@ -1394,13 +1294,16 @@
                 const passivaEstilo = ESTILOS[estilo].passiva;
                 hab8Element.value = (basePassiva ? basePassiva + "\n\n" : "") + passivaEstilo;
                 
-                if (estilo === "Lutador" || estilo === "Espadachim") {
-                    danoBaseElement.value = "Força + Destreza";
+                if (estilo === "Lutador") {
+                    danoBaseElement.value = "1d10 + Nível × 2";
+                } else if (estilo === "Espadachim") {
+                    danoBaseElement.value = "1d12 + Nível × 2";
                 } else if (estilo === "Atirador") {
-                    danoBaseElement.value = "Destreza + Sabedoria";
+                    danoBaseElement.value = "1d14 + Nível × 2";
                 } else if (estilo === "Karate Tritão") {
-                    danoBaseElement.value = "Força + Vontade";
+                    danoBaseElement.value = "Depende da Ação";
                 }
+
             } else {
                 hab8Element.value = basePassiva;
                 danoBaseElement.value = "Dependente do Estilo de luta";
@@ -1458,14 +1361,14 @@
             tritaoBonusForca = 0;
             tritaoBonusVelocidade = 0;
             
-            if (modo === "Dentro da Água") {
+            if (modo === "Dentro da água") {
                 tritaoBonusForca = 10;
                 tritaoBonusVelocidade = 10;
-                tritaoPassiva = "Modo Ativo: Dentro da Água (+10 Força, +10 Velocidade)";
-                hab7Element.value = "Passiva Tritão/Sereia (Selecione o Modo Tritão):\nModo Ativo: Dentro da Água (+10 Força, +10 Velocidade)";
+                tritaoPassiva = "Modo Ativo: Dentro da água (+10 Força, +10 Velocidade)";
+                hab7Element.value = "Passiva Tritão/Sereia (Selecione o Modo Tritão):\nModo Ativo: Dentro da água (+10 Força, +10 Velocidade)";
             } else {
-                tritaoPassiva = "Fora da Água";
-                hab7Element.value = "Passiva Tritão/Sereia (Selecione o Modo Tritão):\nFora da Água";
+                tritaoPassiva = "Fora da água";
+                hab7Element.value = "Passiva Tritão/Sereia (Selecione o Modo Tritão):\nFora da água";
             }
             
             const estilo = document.getElementById('estiloLuta').value;
@@ -1569,6 +1472,19 @@
             fecharModalReset();
             mostrarNotificacao("Ficha resetada com sucesso! Tudo foi zerado.", "success");
         };
+        function mostrarModalNivel3() {
+            document.getElementById('modalNivel3').style.display = 'flex';
+        }
+
+        function fecharModalNivel3() {
+            document.getElementById('modalNivel3').style.display = 'none';
+        }
+
+        function confirmarNivel3() {
+            fecharModalNivel3();
+            comecarNivel3();
+        }
+
 
         function comecarNivel3() {
             const nivelEl = document.getElementById('nivel');
@@ -1584,7 +1500,18 @@
             recalcularStatsEMostrarVida(true);
 
             mostrarNotificacao("Ficha iniciada no Nível 3 (com pontos de início padrão).", "success");
+
+            saveAll(); // 🔧 Adicione esta linha
         }
+
+        function salvarSkillPoints() {
+            const sp = parseInt(document.getElementById('skillPoints').value, 10) || 0;
+            localStorage.setItem('skillPoints', sp);
+        }
+
+
+
+
 
         const saveAll = () => {
             const elementsToSave = document.querySelectorAll(
@@ -1592,6 +1519,7 @@
                 '#hab1, #hab2, #hab3, #hab4, #hab5, #hab6, #hab7, #hab8, #habProf1, #habProf2, #habProf3, #inv1, #inv2, #inv3, ' +
                 '#vidaBaseTotalNumerica, #danoBase, #skillPoints, #tempoVida' 
             );
+
 
             const nivelElement = document.getElementById('nivel');
             if (nivelElement) {
@@ -1615,6 +1543,7 @@
             });
 
             localStorage.setItem('vidaInicialRolada', vidaInicialRolada);
+            localStorage.setItem('pontosBase', String(pontosBase));
         };
 
         const loadAll = () => {
@@ -1630,7 +1559,14 @@
             }
 
             const nivelAtual = parseInt(nivelEl.textContent) || 1;
-            pontosBase = 60 + (nivelAtual - 1) * 4;
+            // 🧠 Corrige bug de pontos extras: restaura pontosBase salvo, se existir
+            const pontosBaseSaved = localStorage.getItem('pontosBase');
+            if (pontosBaseSaved !== null) {
+                pontosBase = parseInt(pontosBaseSaved, 10);
+            } else {
+                pontosBase = 60 + (nivelAtual - 1) * 4;
+            }
+
 
             const elementsToLoad = document.querySelectorAll(
                 '#nome, #alcunha, #recompensa, #player, #idade, #altura, #raca, #modoLunariano, #modoTritao, #modoMink, #estiloLuta, #profissao, #vidaBase, #vidaAtual, #akuma, #haki, ' +
@@ -1725,21 +1661,19 @@
               btn.style.padding = '10px 18px';
               btn.style.borderRadius = '12px';
               btn.style.border = 'none';
-              btn.style.background = 'linear-gradient(135deg, #343a40, #1a1d20)';
+              btn.style.background = '#343a40';
               btn.style.color = '#ffc107';
               btn.style.zIndex = 2000;
               btn.style.cursor = 'pointer';
               btn.style.fontWeight = 'bold';
               btn.style.fontSize = '0.9em';
               btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
-              btn.style.transition = 'all 0.3s ease';
+              btn.style.transition = 'all 0.2s';
               btn.addEventListener('mouseenter', () => {
                   btn.style.transform = 'scale(1.05)';
-                  btn.style.boxShadow = '0 6px 20px rgba(255, 193, 7, 0.3)';
               });
               btn.addEventListener('mouseleave', () => {
                   btn.style.transform = 'scale(1)';
-                  btn.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
               });
               btn.addEventListener('click', clearStorage);
               document.body.appendChild(btn);
